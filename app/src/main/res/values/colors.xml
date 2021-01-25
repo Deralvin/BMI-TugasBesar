@@ -17,4 +17,8 @@
     <color name="colorPrimaryDark">#3d3d3d</color>
     <color name="colorAccent">@color/colorGreen</color>
     <color name="colorAccent2">@color/colorRed</color>
+    <color name="colorOnBackground">#FFFFFF</color>
+    <color name="boxStrokeColor">@color/blue</color>
+    <color name="blue">#2222FF</color>
+    <color name="background">#DDDDDD</color>
 </resources>

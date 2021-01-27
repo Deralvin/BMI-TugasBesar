@@ -14,22 +14,32 @@
         android:layout_height="wrap_content"
         android:textSize="23dp"
         android:text="Masukan Nama" />
-    <EditText
-        android:id="@+id/nameText"
-        android:layout_below="@+id/textView"
-        android:layout_width="match_parent"
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:inputType="text"
-        android:maxLength="5"
-        android:paddingLeft="5dp"
-        android:textColor="@color/colorBlack" />
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="24dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/tietUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Name"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:singleLine="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
     <Space
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:visibility="invisible" />
     <Button
         android:id="@+id/btnName"
-        android:layout_below="@+id/nameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@color/colorGreen"

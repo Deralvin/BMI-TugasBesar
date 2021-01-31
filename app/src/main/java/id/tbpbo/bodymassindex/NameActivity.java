@@ -22,10 +22,10 @@ import com.google.android.material.snackbar.Snackbar;
 public class NameActivity extends AppCompatActivity {
     InternalStorage storage = new InternalStorage();
     @BindView(R.id.btnName) Button btnName;
-    @BindView(R.id.nameText)
+    @BindView(R.id.tietText)
     EditText txtName;
-    @BindView(R.id.layoutName)
-    RelativeLayout relativeLayout;
+//    @BindView(R.id.layoutName)
+//    RelativeLayout relativeLayout;
     SharedPreferences mSettings;
     @OnClick(R.id.btnName)
     public void onButtonClick(View view) {

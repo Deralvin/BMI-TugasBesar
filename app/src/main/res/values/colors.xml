@@ -12,6 +12,7 @@
     <color name="colorBlack"> #3d3d3d</color>
     <color name="colorYellow">#F4D648</color>
     <color name="colorGreen">#2abb9a</color>
+    <color name="btnColor">#00A4E4</color>
     <color name="colorRed">#F44B3E</color>
     <color name="colorPrimary">@color/colorGreen</color>
     <color name="colorPrimaryDark">#3d3d3d</color>
@@ -21,4 +22,9 @@
     <color name="boxStrokeColor">@color/blue</color>
     <color name="blue">#2222FF</color>
     <color name="background">#DDDDDD</color>
+    <color name="bg">#F4F6FA</color>
+    <color name="walkthrough1FontGray">#ababab</color>
+    <color name="button_magenta">#ea2064</color>
+    <color name="walkthrough2formBg">#f1f5f8</color>
+    <color name="loginSignup2InputBg">#f1f5f8</color>
 </resources>

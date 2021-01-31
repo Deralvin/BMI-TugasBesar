@@ -1,50 +1,59 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/layoutName"
     tools:context=".NameActivity">
 
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="match_parent"
+        android:id="@+id/tvSignUp2"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="23dp"
-        android:text="Masukan Nama" />
 
+        android:layout_marginTop="160dp"
+        android:text="Masukan Nama"
+        android:textColor="@color/black"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
         android:layout_marginTop="80dp"
-        android:layout_marginEnd="24dp">
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSignUp2">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/tietUsername"
+            android:id="@+id/tietText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Name"
+            android:hint="Nama"
+
             android:imeOptions="actionNext"
             android:inputType="text"
             android:singleLine="true" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <Space
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:visibility="invisible" />
     <Button
-        android:id="@+id/btnName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:background="@color/colorGreen"
         android:padding="15dp"
         android:text="Submit"
+        android:id="@+id/btnName"
         android:textColor="@color/colorWhite"
-        android:textStyle="bold" />
-</RelativeLayout>
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,9 +14,9 @@
         <activity android:name=".GenderActivity"></activity>
         <activity android:name=".UmurActivity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".SplashScreen" />
+        <activity android:name=".NameActivity" />
         <activity android:name=".ResultActivity" />
-        <activity android:name=".NameActivity">
+        <activity android:name=".SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

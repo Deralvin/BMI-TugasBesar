@@ -22,7 +22,7 @@ public class RestServiceClass {
                 .build();
         if (retrofit == null) {
             retrofit = new Retrofit.Builder()
-                    .baseUrl("http://localhost.com/")
+                    .baseUrl("https://bmi-unikom.000webhostapp.com/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(okHttpClient)
                     .build();

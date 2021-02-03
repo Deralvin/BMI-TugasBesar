@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import id.tbpbo.bodymassindex.Constanta.Constant;
 import id.tbpbo.bodymassindex.Model.BMI.BmiCheck;
 import id.tbpbo.bodymassindex.Model.Category.CategoryModel;
 import id.tbpbo.bodymassindex.Network.RestServiceClass;
@@ -22,6 +26,15 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     private RestServiceInterface restServiceInterface;
+    InternalStorage storage = new InternalStorage();
+    @BindView(R.id.nameEdtx)
+    EditText nama;
+    @BindView(R.id.umurEdtx)
+    EditText umurTxt;
+    @BindView(R.id.gMen)
+    RadioButton gender_pria;
+    @BindView(R.id.gWomen)
+    RadioButton gender_women;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +43,17 @@ public class MainActivity extends AppCompatActivity {
         TextView weight = findViewById(R.id.weightEDTX);
         restServiceInterface    = RestServiceClass.getClient().create(RestServiceInterface.class);
         double value;
+        ButterKnife.bind(this);
+        storage.openShared(this);
+        nama.setText(storage.getString(Constant.name_shared));
+        umurTxt.setText(storage.getString(Constant.umur_shared));
+        if(storage.getString(Constant.gender_shared).equals("Pria")){
+            gender_pria.setChecked(true);
+            gender_women.setChecked(false);
+        }else if(storage.getString(Constant.gender_shared).equals("Wanita")){
+            gender_pria.setChecked(false);
+            gender_women.setChecked(true);
+        }
         Button btn_calculate = findViewById(R.id.calculateBtn);
         btn_calculate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<BmiCheck> call, Response<BmiCheck> response) {
 //                    BmiCheck resp = response.body();
-                    Log.d("FULL", "onResponse: "+response.body());
+                    Log.d("FULL", "onResponse: "+response.body().getMessage());
                 }
 
                 @Override

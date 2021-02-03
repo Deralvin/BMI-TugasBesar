@@ -2,7 +2,9 @@ package id.tbpbo.bodymassindex;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -45,8 +47,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.txtSignUp:
                 Toast.makeText(this, "Sign Up clicked!", Toast.LENGTH_SHORT).show();
                 break;
-            case R.id.btnSignFacebook:
-                Toast.makeText(this, "Sign In with Facebook clicked!", Toast.LENGTH_SHORT).show();
+            case R.id.btnAsGuest:
+                Intent a = new Intent(this,NameActivity.class);
+                startActivity(a);
                 break;
             default:
                 break;

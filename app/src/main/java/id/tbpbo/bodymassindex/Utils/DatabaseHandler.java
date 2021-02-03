@@ -1,5 +1,6 @@
 package id.tbpbo.bodymassindex.Utils;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
@@ -70,5 +71,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         // return contact list
         return contactList;
+    }
+
+    public long addRecord(WalkthroughModel userModels){
+        SQLiteDatabase db  = getWritableDatabase();
+        db.beginTransaction();
+        try{
+            ContentValues values = new ContentValues();
+            values.put(KEY_NAME, userModels.getName());
+            values.put(KEY_STATUS, userModels.getName());
+
+            long id =  db.insert(TABLE_TALL, null, values);
+            db.close();
+            return id;
+        }catch (Exception e){
+
+        }
+        return 0;
     }
 }

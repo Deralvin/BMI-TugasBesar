@@ -16,8 +16,8 @@ public class WalkthroughModel {
     public WalkthroughModel() {
     }
 
-    public WalkthroughModel(int id, String status,String name) {
-        this.id = id;
+    public WalkthroughModel(String status,String name) {
+
         this.status = status;
         this.name = name;
     }

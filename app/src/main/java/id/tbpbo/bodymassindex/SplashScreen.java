@@ -4,11 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import id.tbpbo.bodymassindex.Constanta.Constant;
 import id.tbpbo.bodymassindex.Utils.DatabaseHandler;
 
 public class SplashScreen extends AppCompatActivity {
@@ -28,13 +28,20 @@ public class SplashScreen extends AppCompatActivity {
             Intent i = new Intent(SplashScreen.this, MainActivity.class);
             startActivity(i);
         }else{
-            if(db.getAllRecord().isEmpty()){
-                Log.d("CHECK", "onCreate: Walktrouh");
-                Intent i = new Intent(SplashScreen.this, WalkthroughStyle1Activity.class);
-                startActivity(i);
-            } Log.d("CHECK", "onCreate: Name");
-//            Intent i = new Intent(SplashScreen.this, NameActivity.class);
-//            startActivity(i);
+            Log.d("CHECK", "onCreate: Name");
+            Intent i = new Intent(SplashScreen.this, LoginActivity.class);
+            startActivity(i);
+//            if(mSettings.getBoolean(Constant.walk_shared,false)==false){
+//                Log.d("CHECK", "onCreate: Walktrouh");
+//                Intent i = new Intent(SplashScreen.this, WalkthroughStyle1Activity.class);
+//                startActivity(i);
+//                finish();
+//            }else{
+//                Log.d("CHECK", "onCreate: Name");
+//                Intent i = new Intent(SplashScreen.this, LoginActivity.class);
+//                startActivity(i);
+//            }
+            Log.d("ONSIS", "onCreate: "+db.getAllRecord().isEmpty());
         }
 
 

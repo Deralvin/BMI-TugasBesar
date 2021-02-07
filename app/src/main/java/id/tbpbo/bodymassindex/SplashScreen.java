@@ -21,27 +21,28 @@ public class SplashScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash_screen);
-        db = new DatabaseHandler(this);
+//        db = new DatabaseHandler(this);
         mSettings = getSharedPreferences("Storage", Context.MODE_PRIVATE);
         if(mSettings.getString(Constant.name_shared,null) !=null && mSettings.getString(Constant.gender_shared,null) !=null
         && mSettings.getString(Constant.umur_shared,null) !=null){
             Intent i = new Intent(SplashScreen.this, MainActivity.class);
             startActivity(i);
+            finish();
         }else{
-            Log.d("CHECK", "onCreate: Name");
-            Intent i = new Intent(SplashScreen.this, LoginActivity.class);
-            startActivity(i);
-//            if(mSettings.getBoolean(Constant.walk_shared,false)==false){
-//                Log.d("CHECK", "onCreate: Walktrouh");
-//                Intent i = new Intent(SplashScreen.this, WalkthroughStyle1Activity.class);
-//                startActivity(i);
-//                finish();
-//            }else{
-//                Log.d("CHECK", "onCreate: Name");
-//                Intent i = new Intent(SplashScreen.this, LoginActivity.class);
-//                startActivity(i);
-//            }
-            Log.d("ONSIS", "onCreate: "+db.getAllRecord().isEmpty());
+//            Log.d("CHECK", "onCreate: Name");
+//            Intent i = new Intent(SplashScreen.this, LoginActivity.class);
+//            startActivity(i);
+//            finish();
+            if(mSettings.getBoolean(Constant.walk_shared,false)==false){
+                Log.d("CHECK", "onCreate: Walktrouh");
+                Intent i = new Intent(SplashScreen.this, WalkthroughStyle1Activity.class);
+                startActivity(i);
+                finish();
+            }else{
+                Log.d("CHECK", "onCreate: Name");
+                Intent i = new Intent(SplashScreen.this, LoginActivity.class);
+                startActivity(i);
+            }
         }
 
 

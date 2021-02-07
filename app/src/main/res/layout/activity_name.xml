@@ -28,13 +28,13 @@
         android:layout_marginStart="24dp"
         android:layout_marginTop="80dp"
         android:layout_marginEnd="24dp"
+        android:hint="Nama"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvSignUp2">
         <EditText
             style="@style/LoginSignUp1Input"
-            android:id="@+id/tietText"
-            android:hint="Username" />
+            android:id="@+id/tietText"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 

@@ -45,7 +45,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 Toast.makeText(this, "Button Signin clicked!", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.txtSignUp:
-                Toast.makeText(this, "Sign Up clicked!", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(this,RegisterActivity.class);
+                startActivity(i);
                 break;
             case R.id.btnAsGuest:
                 Intent a = new Intent(this,NameActivity.class);

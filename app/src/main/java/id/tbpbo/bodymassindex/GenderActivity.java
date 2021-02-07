@@ -2,6 +2,7 @@ package id.tbpbo.bodymassindex;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -22,16 +23,10 @@ public class GenderActivity extends AppCompatActivity {
     @OnClick(R.id.btnGender)
     public void onButtonClick(View view) {
         storage.setString(Constant.gender_shared,valueGender);
+        Intent a = new Intent(this,MainActivity.class);
+        startActivity(a);
+        finish();
 
-    }
-
-    @BindView(R.id.btnTest)
-    Button btnTest;
-
-    @OnClick(R.id.btnTest)
-    public void onButtonClicked(View view){
-        Toast.makeText(this, "Please Insert Your Age "+storage.getString(Constant.name_shared) ,
-                Toast.LENGTH_SHORT).show();
     }
 
     String valueGender;

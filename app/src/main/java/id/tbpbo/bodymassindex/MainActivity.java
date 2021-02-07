@@ -1,25 +1,32 @@
 package id.tbpbo.bodymassindex;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import id.tbpbo.bodymassindex.Constanta.Constant;
 import id.tbpbo.bodymassindex.Model.BMI.BmiCheck;
 import id.tbpbo.bodymassindex.Model.Category.CategoryModel;
 import id.tbpbo.bodymassindex.Network.RestServiceClass;
 import id.tbpbo.bodymassindex.Network.RestServiceInterface;
+import ir.androidexception.andexalertdialog.AndExAlertDialog;
+import ir.androidexception.andexalertdialog.Font;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,6 +34,11 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
     private RestServiceInterface restServiceInterface;
     InternalStorage storage = new InternalStorage();
+    String valueGender;
+    @BindView(R.id.heightEDTX)
+    EditText height;
+    @BindView(R.id.weightEDTX)
+    EditText weight;
     @BindView(R.id.nameEdtx)
     EditText nama;
     @BindView(R.id.umurEdtx)
@@ -35,25 +47,49 @@ public class MainActivity extends AppCompatActivity {
     RadioButton gender_pria;
     @BindView(R.id.gWomen)
     RadioButton gender_women;
+    @BindView(R.id.opsi)
+    RadioGroup gender;
+    @OnClick({R.id.gMen,R.id.gWomen})
+    public void onRadioButtonClicked(RadioButton radioButton) {
+        // Is the button now checked?
+        boolean checked = radioButton.isChecked();
+
+        // Check which radio button was clicked
+        switch (radioButton.getId()) {
+            case R.id.gMen:
+                if (checked) {
+                    // 1 clicked
+                    valueGender = radioButton.getText().toString();
+                }
+                break;
+            case R.id.gWomen:
+                if (checked) {
+                    valueGender =  radioButton.getText().toString();
+                }
+                break;
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        EditText height = findViewById(R.id.heightEDTX);
-        TextView weight = findViewById(R.id.weightEDTX);
         restServiceInterface    = RestServiceClass.getClient().create(RestServiceInterface.class);
-        double value;
+
         ButterKnife.bind(this);
         storage.openShared(this);
         nama.setText(storage.getString(Constant.name_shared));
         umurTxt.setText(storage.getString(Constant.umur_shared));
+        valueGender = storage.getString(Constant.gender_shared);
         if(storage.getString(Constant.gender_shared).equals("Pria")){
             gender_pria.setChecked(true);
             gender_women.setChecked(false);
+
         }else if(storage.getString(Constant.gender_shared).equals("Wanita")){
             gender_pria.setChecked(false);
             gender_women.setChecked(true);
         }
+
         Button btn_calculate = findViewById(R.id.calculateBtn);
         btn_calculate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,19 +103,33 @@ public class MainActivity extends AppCompatActivity {
 //                Intent a = new Intent(MainActivity.this,ResultActivity.class);
 //                a.putExtra("value",calculateBMI(val_weight,val_height));
 //                startActivity(a);
-                checkBMI();
-                checkCategory();
+                checkBMI(nama.getText().toString(),weight.getText().toString(),height.getText().toString(),umurTxt.getText().toString(),valueGender,getApplicationContext());
+//                checkCategory();
             }
         });
     }
-    private void checkBMI(){
-        Call<BmiCheck>calls = restServiceInterface.checkBmi("Alvin","60","180","20","P");
+    private void checkBMI(String nama, String bb, String tb, String age, String gender, Context context){
+        Call<BmiCheck>calls = restServiceInterface.checkBmi(nama,bb,tb,age,gender);
         try{
             calls.enqueue(new Callback<BmiCheck>() {
                 @Override
                 public void onResponse(Call<BmiCheck> call, Response<BmiCheck> response) {
-//                    BmiCheck resp = response.body();
-                    Log.d("FULL", "onResponse: "+response.body().getMessage());
+                    BmiCheck resp = response.body();
+
+//                    new AndExAlertDialog.Builder(context)
+//                            .setTitle("Berhasil")
+//                            .setMessage("Berhasil Melakukan perhitungan")
+//                            .setPositiveBtnText("Ok")
+//                       .build();
+//    .setFont(Font.IRAN_SANS)
+//                            .setImage(image, imagePercent)
+//                            .setEditText(true, false, hintText, InputType.TEXT_MULTI_LINE)
+//                            .OnPositiveClicked(positiveClickListener)
+//                            .OnNegativeClicked(negativeClickListener)
+//                            .setTitleTextColor(color)
+//                            .setMessageTextColor(color)
+//                            .setButtonTextColor(color)
+
                 }
 
                 @Override

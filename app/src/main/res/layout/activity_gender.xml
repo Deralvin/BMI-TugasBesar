@@ -1,64 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/layoutName"
-    tools:context=".NameActivity">
+    android:background="@color/walkthrough2formBg"
+    tools:context=".GenderActivity">
 
     <TextView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
+        android:id="@+id/txtGender"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="23dp"
-        android:text="Masukan Gender" />
+
+        android:layout_marginTop="160dp"
+        android:text="Pilih Gender"
+        android:textColor="@color/black"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <RadioGroup
         android:id="@+id/opsi"
-        android:layout_below="@id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtGender"
         android:orientation="vertical">
 
-        <RadioButton
+        <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/priaRd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Pria" />
 
-        <RadioButton
+        <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/wanitaRd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Wanita" />
     </RadioGroup>
 
-    <Space
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:visibility="invisible" />
     <Button
-        android:id="@+id/btnGender"
-        android:layout_below="@+id/opsi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/colorGreen"
+        android:layout_margin="18dp"
+        android:background="@color/button_magenta"
         android:padding="15dp"
         android:text="Submit"
+        android:id="@+id/btnGender"
         android:textColor="@color/colorWhite"
-        android:textStyle="bold" />
-
-    <Button
-        android:id="@+id/btnTest"
-        android:layout_below="@+id/btnGender"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorGreen"
-        android:padding="15dp"
-        android:text="test"
-        android:textColor="@color/colorWhite"
-        android:textStyle="bold" />
-</RelativeLayout>
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/opsi" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

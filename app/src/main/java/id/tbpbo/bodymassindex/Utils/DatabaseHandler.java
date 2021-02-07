@@ -13,80 +13,46 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+import id.tbpbo.bodymassindex.Constanta.Constant;
 import id.tbpbo.bodymassindex.Model.Walktrough.WalkthroughModel;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
-    // static variable
-    private static final int DATABASE_VERSION = 1;
-
-    // Database name
-    private static final String DATABASE_NAME = "bmi_db";
-
-    // table name
-    private static final String TABLE_TALL = "walkthorugh";
-
-    // column tables
-    private static final String KEY_ID = "id";
-    private static final String KEY_NAME = "name";
-    private static final String KEY_STATUS = "status";
-
-    public DatabaseHandler(Context context){
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+    public DatabaseHandler(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
+        super(context, name, factory, version);
     }
 
-    //Create table
+    public DatabaseHandler(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version, @Nullable DatabaseErrorHandler errorHandler) {
+        super(context, name, factory, version, errorHandler);
+    }
+
+    public DatabaseHandler(@Nullable Context context, @Nullable String name, int version, @NonNull SQLiteDatabase.OpenParams openParams) {
+        super(context, name, version, openParams);
+    }
+
     @Override
-    public void onCreate(SQLiteDatabase db) {
-        String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_TALL + "("
-                + KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
-                + KEY_STATUS + " TEXT" + ")";
-        db.execSQL(CREATE_CONTACTS_TABLE);
+    public void onCreate(SQLiteDatabase sqLiteDatabase) {
+
     }
 
-    // on Upgrade database
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_TALL);
-        onCreate(db);
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+
     }
 
-    public List<WalkthroughModel> getAllRecord() {
-        List<WalkthroughModel> contactList = new ArrayList<WalkthroughModel>();
-        // Select All Query
-        String selectQuery = "SELECT  * FROM " + TABLE_TALL;
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-
-        if (cursor.moveToFirst()) {
-            do {
-                WalkthroughModel userModels = new WalkthroughModel();
-                userModels.setId(Integer.parseInt(cursor.getString(0)));
-                userModels.setName(cursor.getString(1));
-                userModels.setStatus(cursor.getString(2));
-
-                contactList.add(userModels);
-            } while (cursor.moveToNext());
-        }
-
-        // return contact list
-        return contactList;
-    }
-
-    public long addRecord(WalkthroughModel userModels){
-        SQLiteDatabase db  = getWritableDatabase();
-        db.beginTransaction();
-        try{
-            ContentValues values = new ContentValues();
-            values.put(KEY_NAME, userModels.getName());
-            values.put(KEY_STATUS, userModels.getName());
-
-            long id =  db.insert(TABLE_TALL, null, values);
-            db.close();
-            return id;
-        }catch (Exception e){
-
-        }
-        return 0;
-    }
+//    static final String DB_NAME = "tubes_bmi";
+//    static final int DB_VERSION = 1;
+//
+//    private static final String CREATE_TABLE = "create table " + Constant.table_bmi + "(" + Constant.ID
+//            + " INTEGER PRIMARY KEY AUTOINCREMENT, " + Constant.NAMA_BMI + " TEXT NOT NULL, " + Constant.TB_BMI + " TEXT," +
+//            ""+Constant.BB_BMI + " TEXT,"+Constant.GENDER_BMI+");";
+//
+//    @Override
+//    public void onCreate(SQLiteDatabase sqLiteDatabase) {
+//
+//    }
+//
+//    @Override
+//    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+//
+//    }
 }

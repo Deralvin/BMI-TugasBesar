@@ -29,20 +29,21 @@ public class SplashScreen extends AppCompatActivity {
             startActivity(i);
             finish();
         }else{
-//            Log.d("CHECK", "onCreate: Name");
-//            Intent i = new Intent(SplashScreen.this, LoginActivity.class);
-//            startActivity(i);
-//            finish();
-            if(mSettings.getBoolean(Constant.walk_shared,false)==false){
-                Log.d("CHECK", "onCreate: Walktrouh");
-                Intent i = new Intent(SplashScreen.this, WalkthroughStyle1Activity.class);
-                startActivity(i);
-                finish();
-            }else{
-                Log.d("CHECK", "onCreate: Name");
-                Intent i = new Intent(SplashScreen.this, LoginActivity.class);
-                startActivity(i);
-            }
+            Log.d("CHECK", "onCreate: Name");
+            Intent i = new Intent(SplashScreen.this, LoginActivity.class);
+            startActivity(i);
+            finish();
+//            if(mSettings.getBoolean(Constant.walk_shared,false)==false){
+//                Log.d("CHECK", "onCreate: Walktrouh");
+//                Intent i = new Intent(SplashScreen.this, WalkthroughStyle1Activity.class);
+//                startActivity(i);
+//                finish();
+//            }else{
+//                Log.d("CHECK", "onCreate: Name");
+//                Intent i = new Intent(SplashScreen.this, LoginActivity.class);
+//                startActivity(i);
+//            }
+//            Log.d("ONSIS", "onCreate: "+db.getAllRecord().isEmpty());
         }
 
 

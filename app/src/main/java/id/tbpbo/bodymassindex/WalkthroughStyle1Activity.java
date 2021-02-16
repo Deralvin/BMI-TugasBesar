@@ -3,11 +3,15 @@ package id.tbpbo.bodymassindex;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -19,16 +23,24 @@ import id.tbpbo.bodymassindex.Constanta.Constant;
 import id.tbpbo.bodymassindex.Model.Walktrough.WalkthroughModel;
 import id.tbpbo.bodymassindex.Utils.DatabaseHandler;
 
-public class WalkthroughStyle1Activity extends AppCompatActivity {
+public class WalkthroughStyle1Activity extends AppCompatActivity{
     private ViewPager viewPager;
     private View indicator1;
     private View indicator2;
     private View indicator3;
     private View indicator4;
+    Context context;
     Button getStarted = findViewById(R.id.btnGetStarted);
 //    private DatabaseHandler db;
 SharedPreferences mSettings;
     InternalStorage storage = new InternalStorage();
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs) {
+        return super.onCreateView(name, context, attrs);
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +51,13 @@ SharedPreferences mSettings;
         indicator2 = findViewById(R.id.indicator2);
         indicator3 = findViewById(R.id.indicator3);
         indicator4 = findViewById(R.id.indicator4);
-
+        context = getApplicationContext();
+        getStarted.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(context, "dsds", Toast.LENGTH_SHORT).show();
+            }
+        });
 //        db = new DatabaseHandler(this);
 
         viewPager = (ViewPager) findViewById(R.id.viewPager);
@@ -50,6 +68,7 @@ SharedPreferences mSettings;
 
         updateIndicators(0);
     }
+
 
     private class ViewPagerAdapter extends FragmentPagerAdapter {
 
@@ -128,28 +147,27 @@ SharedPreferences mSettings;
                 indicator2.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_dot_grey));
                 indicator3.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_dot_grey));
                 indicator4.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_dot_grey));
-                getStarted.setEnabled(false);
+
                 break;
             case 1:
                 indicator1.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_dot_grey));
                 indicator2.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_dot));
                 indicator3.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_dot_grey));
                 indicator4.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_dot_grey));
-                getStarted.setEnabled(false);
+
                 break;
             case 2:
                 indicator1.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_dot_grey));
                 indicator2.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_dot_grey));
                 indicator3.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_dot));
                 indicator4.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_dot_grey));
-                getStarted.setEnabled(false);
+
                 break;
             case 3:
                 indicator1.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_dot_grey));
                 indicator2.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_dot_grey));
                 indicator3.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_dot_grey));
                 indicator4.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_dot));
-                getStarted.setEnabled(true);
 
                 break;
         }

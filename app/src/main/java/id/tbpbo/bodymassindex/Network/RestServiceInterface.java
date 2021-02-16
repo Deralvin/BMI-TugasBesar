@@ -1,6 +1,7 @@
 package id.tbpbo.bodymassindex.Network;
 import id.tbpbo.bodymassindex.Model.BMI.BmiCheck;
 import id.tbpbo.bodymassindex.Model.Category.CategoryModel;
+import id.tbpbo.bodymassindex.Model.Login.LoginModel;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -20,6 +21,14 @@ public interface RestServiceInterface {
                             @Field("gender") String gender);
     @GET("api/category")
     Call<CategoryModel> checkCategory ();
+
+    @FormUrlEncoded
+    @POST("api/auth/login")
+   Call<LoginModel> loginApi(
+            @Field("email") String email,
+            @Field("password") String password
+    );
+
 
 
 }

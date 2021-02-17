@@ -21,7 +21,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import id.tbpbo.bodymassindex.Constanta.Constant;
 import id.tbpbo.bodymassindex.Model.Walktrough.WalkthroughModel;
-import id.tbpbo.bodymassindex.Utils.DatabaseHandler;
 
 public class WalkthroughStyle1Activity extends AppCompatActivity{
     private ViewPager viewPager;

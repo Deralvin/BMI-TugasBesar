@@ -1,7 +1,9 @@
 package id.tbpbo.bodymassindex;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +16,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
@@ -33,6 +37,9 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     private RestServiceInterface restServiceInterface;
+
+    Context mContext;
+    ProgressDialog loading;
     InternalStorage storage = new InternalStorage();
     String valueGender;
     @BindView(R.id.heightEDTX)
@@ -77,18 +84,19 @@ public class MainActivity extends AppCompatActivity {
         restServiceInterface    = RestServiceClass.getClient().create(RestServiceInterface.class);
 
         ButterKnife.bind(this);
+        mContext = this;
         storage.openShared(this);
         nama.setText(storage.getString(Constant.name_shared));
-        umurTxt.setText(storage.getString(Constant.umur_shared));
-        valueGender = storage.getString(Constant.gender_shared);
-        if(storage.getString(Constant.gender_shared).equals("Pria")){
-            gender_pria.setChecked(true);
-            gender_women.setChecked(false);
-
-        }else if(storage.getString(Constant.gender_shared).equals("Wanita")){
-            gender_pria.setChecked(false);
-            gender_women.setChecked(true);
-        }
+//        umurTxt.setText(storage.getString(Constant.umur_shared));
+//        valueGender = storage.getString(Constant.gender_shared);
+//        if(storage.getString(Constant.gender_shared).equals("Pria")){
+//            gender_pria.setChecked(true);
+//            gender_women.setChecked(false);
+//
+//        }else if(storage.getString(Constant.gender_shared).equals("Wanita")){
+//            gender_pria.setChecked(false);
+//            gender_women.setChecked(true);
+//        }
 
         Button btn_calculate = findViewById(R.id.calculateBtn);
         btn_calculate.setOnClickListener(new View.OnClickListener() {
@@ -103,19 +111,42 @@ public class MainActivity extends AppCompatActivity {
 //                Intent a = new Intent(MainActivity.this,ResultActivity.class);
 //                a.putExtra("value",calculateBMI(val_weight,val_height));
 //                startActivity(a);
+//                loading = ProgressDialog.show(mContext, null, "Calculate...", true, false);
                 checkBMI(nama.getText().toString(),weight.getText().toString(),height.getText().toString(),umurTxt.getText().toString(),valueGender,getApplicationContext());
 //                checkCategory();
             }
         });
     }
+    public void generateNoteOnSD(Context context, String sFileName, String sBody) {
+        try {
+            File root = new File(Environment.getExternalStorageDirectory(), "Notes");
+            if (!root.exists()) {
+                root.mkdirs();
+            }
+            File gpxfile = new File(root, sFileName);
+            FileWriter writer = new FileWriter(gpxfile);
+            writer.append(sBody);
+            writer.flush();
+            writer.close();
+            Toast.makeText(context, "Saved", Toast.LENGTH_SHORT).show();
+        } catch ( IOException e) {
+            e.printStackTrace();
+        }
+    }
     private void checkBMI(String nama, String bb, String tb, String age, String gender, Context context){
         Call<BmiCheck>calls = restServiceInterface.checkBmi(nama,bb,tb,age,gender);
+//        loading.cancel();
         try{
             calls.enqueue(new Callback<BmiCheck>() {
                 @Override
                 public void onResponse(Call<BmiCheck> call, Response<BmiCheck> response) {
-                    BmiCheck resp = response.body();
 
+                    BmiCheck resp = response.body();
+                        if (resp.getSuccess()){
+                            Log.d("TAG APAPUN", "onResponse: "+resp.getData().getIdKategori());
+//                            generateNoteOnSD(mContext,"myname","dsa");
+
+                        }
 //                    new AndExAlertDialog.Builder(context)
 //                            .setTitle("Berhasil")
 //                            .setMessage("Berhasil Melakukan perhitungan")
@@ -140,6 +171,7 @@ public class MainActivity extends AppCompatActivity {
             });
 
         }catch (Exception e){
+
             Log.d("EXCEPTION", "checkBMI: "+e.getMessage());
         }
     }

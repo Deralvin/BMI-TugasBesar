@@ -2,8 +2,11 @@ package id.tbpbo.bodymassindex.Constanta;
 
 public class Constant {
     public static final String name_shared = "name_key";
+    public static final String id_shared = "id_key";
     public static final String umur_shared = "umur_key";
     public static final String gender_shared = "gender_shared";
+    public static final String email_shared = "email_shared";
+    public static final String logged_shared = "logged_shared";
     public static final String walk_shared = "walk";
     public static final String key_shared = "Storage";
 

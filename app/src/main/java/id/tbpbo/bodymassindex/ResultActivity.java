@@ -46,7 +46,9 @@ public class ResultActivity extends AppCompatActivity {
         TextView advice3TV = findViewById(R.id.advice3TV);
         TextView bmiValueTV = findViewById(R.id.bmiValueTV);
         DecimalFormat df = new DecimalFormat("#.##");
-        Double bmi = Double.valueOf(bundle.getString("jumlah"));
+        String data = bundle.getString("jumlah");
+        Log.d("SDsf", "onCreate: "+data);
+        Double bmi =20.0;
 
         commentTV.setText(category);
         bmiLabelTV.setText(category_name);

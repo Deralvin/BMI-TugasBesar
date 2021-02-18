@@ -20,7 +20,8 @@ public interface RestServiceInterface {
                             @Field("berat_badan") String bb,
                             @Field("tinggi_badan") String tb,
                             @Field("umur") String age,
-                            @Field("gender") String gender);
+                            @Field("gender") String gender,
+                            @Field("id_user")long id);
     @GET("api/category")
     Call<CategoryModel> checkCategory ();
 

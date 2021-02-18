@@ -24,7 +24,7 @@ public class SplashScreen extends AppCompatActivity {
 //        db = new DatabaseHandler(this);
         mSettings = getSharedPreferences("Storage", Context.MODE_PRIVATE);
         if(mSettings.getString(Constant.name_shared,null) !=null ){
-            Intent i = new Intent(SplashScreen.this, HistoryActivity.class);
+            Intent i = new Intent(SplashScreen.this, MenuActivity.class);
             startActivity(i);
             finish();
         }else{

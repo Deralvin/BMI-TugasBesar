@@ -4,8 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 
@@ -27,6 +31,9 @@ public class HistoryActivity extends AppCompatActivity {
 
     @BindView(R.id.recyclerViewHistory)
     RecyclerView recyclerHistory;
+
+    @BindView(R.id.fab_add_bmi)
+    FloatingActionButton fab;
     HistoryModel historyModel = new HistoryModel();
     private RestServiceInterface restServiceInterface;
     private static final String TAG = "HISTOY";
@@ -42,6 +49,13 @@ public class HistoryActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         restServiceInterface    = RestServiceClass.getClient().create(RestServiceInterface.class);
         getAllData();
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent a = new Intent(HistoryActivity.this,MainActivity.class);
+                startActivity(a);
+            }
+        });
 
 
 

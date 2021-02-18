@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     private void checkBMI(String nama, String bb, String tb, String age, String gender, Context context){
-        Call<BmiCheck>calls = restServiceInterface.checkBmi(nama,bb,tb,age,gender);
+        Call<BmiCheck>calls = restServiceInterface.checkBmi(nama,bb,tb,age,gender,storage.getInt(Constant.id_shared));
 //        loading.cancel();
         try{
             calls.enqueue(new Callback<BmiCheck>() {

@@ -2,8 +2,10 @@ package id.tbpbo.bodymassindex;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Parcel;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +22,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -142,8 +145,19 @@ public class MainActivity extends AppCompatActivity {
                 public void onResponse(Call<BmiCheck> call, Response<BmiCheck> response) {
 
                     BmiCheck resp = response.body();
+                    DecimalFormat df = new DecimalFormat("#.##");
                         if (resp.getSuccess()){
+                            Log.d("TAGGS", "onResponse: "+resp.getData().getIdKategori());
+                            Log.d("TAGGS", "onResponse: "+df.format(resp.getData().getJumlahBmi()));
+                            Log.d("TAGGS", "onResponse: "+resp.getData().getMessage());
+                            Bundle bundle = new Bundle();
                             Log.d("TAG APAPUN", "onResponse: "+resp.getData().getIdKategori());
+                            Intent a = new Intent(MainActivity.this,ResultActivity.class);
+                            bundle.putInt("id_kategori",resp.getData().getIdKategori());
+                            bundle.putString("message",resp.getData().getMessage());
+                            bundle.putString("jumlah",df.format(resp.getData().getJumlahBmi()));
+
+                            startActivity(a);
 //                            generateNoteOnSD(mContext,"myname","dsa");
 
                         }

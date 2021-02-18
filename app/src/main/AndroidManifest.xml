@@ -29,7 +29,9 @@
             android:name=".MainActivity"
             android:theme="@style/AppTheme" />
         <activity android:name=".NameActivity" />
-        <activity android:name=".ResultActivity" />
+        <activity android:name=".ResultActivity"
+            android:theme="@style/AppTheme"
+            />
         <activity
             android:name=".LoginActivity"
             android:theme="@style/AppTheme" />

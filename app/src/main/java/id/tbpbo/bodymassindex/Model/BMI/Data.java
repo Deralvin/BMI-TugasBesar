@@ -2,7 +2,6 @@ package id.tbpbo.bodymassindex.Model.BMI;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
 public class Data {
 
     @SerializedName("nama")
@@ -23,6 +22,12 @@ public class Data {
     @SerializedName("id_kategori")
     @Expose
     private Integer idKategori;
+    @SerializedName("jumlah_bmi")
+    @Expose
+    private Double jumlahBmi;
+    @SerializedName("id_user")
+    @Expose
+    private Object idUser;
     @SerializedName("message")
     @Expose
     private String message;
@@ -73,6 +78,22 @@ public class Data {
 
     public void setIdKategori(Integer idKategori) {
         this.idKategori = idKategori;
+    }
+
+    public Double getJumlahBmi() {
+        return jumlahBmi;
+    }
+
+    public void setJumlahBmi(Double jumlahBmi) {
+        this.jumlahBmi = jumlahBmi;
+    }
+
+    public Object getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(Object idUser) {
+        this.idUser = idUser;
     }
 
     public String getMessage() {

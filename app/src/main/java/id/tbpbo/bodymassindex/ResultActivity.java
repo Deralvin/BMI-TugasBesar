@@ -1,6 +1,7 @@
 package id.tbpbo.bodymassindex;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -9,14 +10,30 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+
+import id.tbpbo.bodymassindex.Model.BMI.BmiCheck;
+import id.tbpbo.bodymassindex.Model.BMI.Data;
+import id.tbpbo.bodymassindex.Model.Category.CategoryModel;
+import id.tbpbo.bodymassindex.Network.RestServiceClass;
+import id.tbpbo.bodymassindex.Network.RestServiceInterface;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ResultActivity extends AppCompatActivity {
 
+    private RestServiceInterface restServiceInterface;
+    CategoryModel categoryModel;
+    String category,category_name;
+    Bundle bundle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
-        Bundle bundle = getIntent().getExtras();
+        restServiceInterface    = RestServiceClass.getClient().create(RestServiceInterface.class);
+        bundle = getIntent().getExtras();
+        attemptCategory();
         LinearLayout containerL = findViewById(R.id.containerL);
         ImageView bmiFlagImgView = findViewById(R.id.bmiFlagImgView);
         TextView bmiLabelTV = findViewById(R.id.bmiLabelTV);
@@ -28,8 +45,12 @@ public class ResultActivity extends AppCompatActivity {
         TextView advice2TV = findViewById(R.id.advice2TV);
         TextView advice3TV = findViewById(R.id.advice3TV);
         TextView bmiValueTV = findViewById(R.id.bmiValueTV);
-        Double bmi = bundle.getDouble("value",-1.0);
+        DecimalFormat df = new DecimalFormat("#.##");
+        Double bmi = Double.valueOf(bundle.getString("jumlah"));
 
+        commentTV.setText(category);
+        bmiLabelTV.setText(category_name);
+        Log.d("DSS", "onCreate: "+category );
         if (bmi == -1.0) {
             containerL.setVisibility( View.GONE);
         } else {
@@ -37,8 +58,8 @@ public class ResultActivity extends AppCompatActivity {
             if (bmi < 18.5) {
                 containerL.setBackgroundResource(R.color.colorYellow);
                 bmiFlagImgView.setImageResource(R.drawable.warning);
-                bmiLabelTV.setText("You have an UnderWeight!");
-                commentTV.setText("Here are some advices To help you increase your weight");
+//                bmiLabelTV.setText("You have an UnderWeight!");
+                commentTV.setText(category);
                 advice1IMG.setImageResource(R.drawable.nowater);
                 advice1TV.setText("Don't drink water before meals");
                 advice2IMG.setImageResource(R.drawable.bigmeal);
@@ -49,8 +70,8 @@ public class ResultActivity extends AppCompatActivity {
                 if (bmi > 25) {
                     containerL.setBackgroundResource(R.color.colorRed);
                     bmiFlagImgView.setImageResource(R.drawable.warning);
-                    bmiLabelTV.setText("You have an OverWeight!");
-                    commentTV.setText("Here are some advices To help you decrease your weight");
+//                    bmiLabelTV.setText("You have an OverWeight!");
+                    commentTV.setText(category);
                     advice1IMG.setImageResource(R.drawable.water);
                     advice1TV.setText("Drink water a half hour before meals");
                     advice2IMG.setImageResource(R.drawable.twoeggs);
@@ -61,5 +82,30 @@ public class ResultActivity extends AppCompatActivity {
             }
         }
 
+    }
+
+    private void attemptCategory(){
+        Call<CategoryModel> getCategory= restServiceInterface.checkCategory();
+        try {
+            getCategory.enqueue(new Callback<CategoryModel>() {
+                @Override
+                public void onResponse(Call<CategoryModel> call, Response<CategoryModel> response) {
+                    categoryModel = response.body();
+                    for (int i = 0 ; i>categoryModel.getData().size(); i++){
+                        if(categoryModel.getData().get(i).getIdKategori().equals(bundle.getInt("id_kategori"))){
+                            category = categoryModel.getData().get(i).getKeterangan();
+                            category_name = categoryModel.getData().get(i).getNamaKategori();
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<CategoryModel> call, Throwable t) {
+
+                }
+            });
+        }catch (Exception e){
+            Log.e("ERROR CATEGORY", "attemptCategory: "+e.getMessage());
+        }
     }
 }

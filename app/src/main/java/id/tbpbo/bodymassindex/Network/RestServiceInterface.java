@@ -31,6 +31,12 @@ public interface RestServiceInterface {
             @Field("email") String email,
             @Field("password") String password
     );
+//    @FormUrlEncoded
+//    @POST("api/auth/login")
+//    Call<LoginModel> loginApi(
+//            @Field("email") String email,
+//            @Field("password") String password
+//    );
 
     @GET("api/bmi-check/{id}")
     Call<HistoryModel> getHistory(

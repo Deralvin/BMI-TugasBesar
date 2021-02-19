@@ -1,5 +1,4 @@
 package id.tbpbo.bodymassindex.Model.Category;
-
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -8,7 +7,7 @@ public class CategoryModel {
 
     @SerializedName("success")
     @Expose
-    private Integer success;
+    private Boolean success;
     @SerializedName("message")
     @Expose
     private String message;
@@ -16,11 +15,11 @@ public class CategoryModel {
     @Expose
     private List<Datum> data = null;
 
-    public Integer getSuccess() {
+    public Boolean getSuccess() {
         return success;
     }
 
-    public void setSuccess(Integer success) {
+    public void setSuccess(Boolean success) {
         this.success = success;
     }
 

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,7 +24,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ResultActivity extends AppCompatActivity {
-
+    TextView commentTV;
     private RestServiceInterface restServiceInterface;
     CategoryModel categoryModel;
     String category,category_name;
@@ -38,7 +39,7 @@ public class ResultActivity extends AppCompatActivity {
         LinearLayout containerL = findViewById(R.id.containerL);
         ImageView bmiFlagImgView = findViewById(R.id.bmiFlagImgView);
         TextView bmiLabelTV = findViewById(R.id.bmiLabelTV);
-        TextView commentTV = findViewById(R.id.commentTV);
+        commentTV = findViewById(R.id.commentTV);
         ImageView advice1IMG = findViewById(R.id.advice1IMG);
         TextView advice1TV = findViewById(R.id.advice1TV);
         ImageView advice2IMG = findViewById(R.id.advice2IMG);
@@ -51,7 +52,6 @@ public class ResultActivity extends AppCompatActivity {
         Log.d("SDsf", "onCreate: "+data);
         Double bmi =Double.parseDouble(data);
 
-        commentTV.setText(getIntent().getStringExtra("message"));
         bmiLabelTV.setText(getIntent().getStringExtra("message"));
         Log.d("DSS", "onCreate: "+category );
         if (bmi == -1.0) {
@@ -95,24 +95,37 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     private void attemptCategory(){
+        Log.d("Category", "Head Attempt");
         Call<CategoryModel> getCategory= restServiceInterface.checkCategory();
         try {
             getCategory.enqueue(new Callback<CategoryModel>() {
                 @Override
                 public void onResponse(Call<CategoryModel> call, Response<CategoryModel> response) {
                     categoryModel = response.body();
-                    for (int i = 0 ; i>categoryModel.getData().size(); i++){
-                        if(categoryModel.getData().get(i).getIdKategori().equals(getIntent().getIntExtra("id_kategori",0))){
-                            category = categoryModel.getData().get(i).getKeterangan();
-                            category_name = categoryModel.getData().get(i).getNamaKategori();
-                            Log.d("Category", "onResponse: "+category);
-                        }
-                    }
+                    Log.d("Category Get", "onResponse: "+response.body().getSuccess());
+                    Log.d("Category Message", "onResponse: "+response.body().getMessage());
+                   if (categoryModel.getSuccess()){
+                       Log.d("Category Size", "onResponse: "+response.body().getData().size());
+                       for (int i = 0 ; i<categoryModel.getData().size(); i++){
+                           if(categoryModel.getData().get(i).getIdKategori().equals(getIntent().getIntExtra("id_kategori",0))){
+                               category = categoryModel.getData().get(i).getKeterangan();
+                               category_name = categoryModel.getData().get(i).getNamaKategori();
+                               Log.d("Category", "onResponse: "+category);
+
+                               commentTV.setText(category);
+                               break;
+                           }
+                           Log.d("Category Get", "onResponse: "+response.body().getData().get(i).getKeterangan());
+                       }
+                   }else {
+                       Toast.makeText(ResultActivity.this, "Error Failed Get Category", Toast.LENGTH_SHORT).show();
+                       Log.d("False", "onResponse: ");
+                   }
                 }
 
                 @Override
                 public void onFailure(Call<CategoryModel> call, Throwable t) {
-
+                    Log.d("CategoryFailure", "onResponse: "+t.getMessage());
                 }
             });
         }catch (Exception e){

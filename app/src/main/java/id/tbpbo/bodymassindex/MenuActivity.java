@@ -1,9 +1,11 @@
 package id.tbpbo.bodymassindex;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -41,6 +43,29 @@ public class MenuActivity extends AppCompatActivity {
         });
     }
 
+    private void alertLogout(){
+        AlertDialog alertDialog = new AlertDialog.Builder(MenuActivity.this).create();
+        alertDialog.setTitle("Logout");
+        alertDialog.setMessage("Are you sure want to logout ?");
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                internalStorage.removeStorageAll();
+                Intent a = new Intent(MenuActivity.this,LoginActivity.class);
+                startActivity(a);
+                finish();
+                finish();
+            }
+        });
+        alertDialog.show();
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -51,6 +76,7 @@ public class MenuActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) { switch(item.getItemId()) {
         case R.id.logout:
+            alertLogout();
             //add the function to perform here
             return(true);
     }

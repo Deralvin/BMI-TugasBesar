@@ -34,8 +34,24 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
     @Override
     public void onBindViewHolder(HistoryViewHolder holder, int position) {
         holder.txtNama.setText(dataList.getData().get(position).getNama());
-        holder.txtNpm.setText(dataList.getData().get(position).getBeratBadan().toString());
-        holder.txtNoHp.setText(dataList.getData().get(position).getTinggiBadan().toString());
+        switch (dataList.getData().get(position).getIdKategori()){
+            case 1:
+                holder.txtNpm.setText("Kategori Underweight >18,5");
+                break;
+            case 2:
+                holder.txtNpm.setText("Kategori Normal 18,5 - 22,9");
+                break;
+            case 3:
+                holder.txtNpm.setText("Kategori overweight skor 23 - 24,9");
+                break;
+            case 4:
+                holder.txtNpm.setText("Kategori obesitas 25 dan seterusnya");
+                break;
+            default:
+                holder.txtNpm.setText("Kategori Tidak Ditemukan");
+                break;
+        }
+        holder.txtNoHp.setText(dataList.getData().get(position).getJumlahBmi().toString());
     }
 
     @Override

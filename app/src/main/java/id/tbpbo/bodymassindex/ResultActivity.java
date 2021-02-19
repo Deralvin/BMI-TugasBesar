@@ -1,5 +1,6 @@
 package id.tbpbo.bodymassindex;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -84,6 +85,13 @@ public class ResultActivity extends AppCompatActivity {
             }
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent a = new Intent(ResultActivity.this,MenuActivity.class);
+        startActivity(a);
+        finish();
     }
 
     private void attemptCategory(){

@@ -50,8 +50,8 @@ public class ResultActivity extends AppCompatActivity {
         Log.d("SDsf", "onCreate: "+data);
         Double bmi =Double.parseDouble(data);
 
-        commentTV.setText(category);
-        bmiLabelTV.setText(category_name);
+        commentTV.setText(getIntent().getStringExtra("message"));
+        bmiLabelTV.setText(getIntent().getStringExtra("message"));
         Log.d("DSS", "onCreate: "+category );
         if (bmi == -1.0) {
             containerL.setVisibility( View.GONE);
@@ -61,7 +61,7 @@ public class ResultActivity extends AppCompatActivity {
                 containerL.setBackgroundResource(R.color.colorYellow);
                 bmiFlagImgView.setImageResource(R.drawable.warning);
 //                bmiLabelTV.setText("You have an UnderWeight!");
-                commentTV.setText(category);
+//                commentTV.setText(category);
                 advice1IMG.setImageResource(R.drawable.nowater);
                 advice1TV.setText("Don't drink water before meals");
                 advice2IMG.setImageResource(R.drawable.bigmeal);
@@ -73,7 +73,7 @@ public class ResultActivity extends AppCompatActivity {
                     containerL.setBackgroundResource(R.color.colorRed);
                     bmiFlagImgView.setImageResource(R.drawable.warning);
 //                    bmiLabelTV.setText("You have an OverWeight!");
-                    commentTV.setText(category);
+//                    commentTV.setText(category);
                     advice1IMG.setImageResource(R.drawable.water);
                     advice1TV.setText("Drink water a half hour before meals");
                     advice2IMG.setImageResource(R.drawable.twoeggs);
@@ -94,9 +94,10 @@ public class ResultActivity extends AppCompatActivity {
                 public void onResponse(Call<CategoryModel> call, Response<CategoryModel> response) {
                     categoryModel = response.body();
                     for (int i = 0 ; i>categoryModel.getData().size(); i++){
-                        if(categoryModel.getData().get(i).getIdKategori().equals(bundle.getInt("id_kategori"))){
+                        if(categoryModel.getData().get(i).getIdKategori().equals(getIntent().getIntExtra("id_kategori",0))){
                             category = categoryModel.getData().get(i).getKeterangan();
                             category_name = categoryModel.getData().get(i).getNamaKategori();
+                            Log.d("Category", "onResponse: "+category);
                         }
                     }
                 }

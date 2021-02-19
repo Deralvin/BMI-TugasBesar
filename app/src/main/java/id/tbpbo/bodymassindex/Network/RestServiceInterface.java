@@ -3,6 +3,7 @@ import id.tbpbo.bodymassindex.Model.BMI.BmiCheck;
 import id.tbpbo.bodymassindex.Model.Category.CategoryModel;
 import id.tbpbo.bodymassindex.Model.History.HistoryModel;
 import id.tbpbo.bodymassindex.Model.Login.LoginModel;
+import id.tbpbo.bodymassindex.Model.Register.RegisterModel;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -31,17 +32,18 @@ public interface RestServiceInterface {
             @Field("email") String email,
             @Field("password") String password
     );
-//    @FormUrlEncoded
-//    @POST("api/auth/login")
-//    Call<LoginModel> loginApi(
-//            @Field("email") String email,
-//            @Field("password") String password
-//    );
+    @FormUrlEncoded
+    @POST("api/auth/register")
+    Call<RegisterModel> registerApi(@Field("name") String name,
+                                    @Field("email") String email,
+                                    @Field("password") String password
+                          );
 
     @GET("api/bmi-check/{id}")
     Call<HistoryModel> getHistory(
             @Path("id") long id
     );
+
 
 
 

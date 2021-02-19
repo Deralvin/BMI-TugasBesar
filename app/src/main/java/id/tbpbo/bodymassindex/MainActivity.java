@@ -153,10 +153,15 @@ public class MainActivity extends AppCompatActivity {
                             Bundle bundle = new Bundle();
                             Log.d("TAG APAPUN", "onResponse: "+resp.getData().getIdKategori());
                             Intent a = new Intent(MainActivity.this,ResultActivity.class);
+                            a.putExtra("id_kategori",resp.getData().getIdKategori());
+                            a.putExtra("message",resp.getData().getMessage());
+                            a.putExtra("jumlah",df.format(resp.getData().getJumlahBmi()));
+
+
                             bundle.putInt("id_kategori",resp.getData().getIdKategori());
                             bundle.putString("message",resp.getData().getMessage());
                             bundle.putString("jumlah",df.format(resp.getData().getJumlahBmi()));
-
+                            a.putExtras(bundle);
                             startActivity(a);
 //                            generateNoteOnSD(mContext,"myname","dsa");
 
